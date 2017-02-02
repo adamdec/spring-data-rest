@@ -53,7 +53,7 @@ public class RepositoryCorsConfigurationAccessorUnitTests {
 
 	@Before
 	public void before() throws Exception {
-		accessor = new RepositoryCorsConfigurationAccessor(mappings, repositories, NoOpStringValueResolver.INSTANCE);
+		accessor = new RepositoryCorsConfigurationAccessor(mappings, NoOpStringValueResolver.INSTANCE, repositories);
 	}
 
 	@Test // DATAREST-573
@@ -86,11 +86,10 @@ public class RepositoryCorsConfigurationAccessorUnitTests {
 		assertThat(configuration.getMaxAge(), is(1234L));
 	}
 
-
 	@Test // DATAREST-994
 	public void returnsNullCorsConfigurationWithNullRepositories() {
 
-		accessor = new RepositoryCorsConfigurationAccessor(mappings, null, NoOpStringValueResolver.INSTANCE);
+		accessor = new RepositoryCorsConfigurationAccessor(mappings, NoOpStringValueResolver.INSTANCE, null);
 
 		ResourceMetadata resourceMetadata = mock(ResourceMetadata.class);
 		when(resourceMetadata.getPath()).thenReturn(new Path("/people"));
